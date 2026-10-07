@@ -3,136 +3,239 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2f4a52">
+<meta name="theme-color" content="#7a9075">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Mon journal d'émotions</title>
+<title>Mon journal d'émotions TCC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#eef2f1;--card:#fff;--ink:#1f2d31;--mute:#5d7076;--line:#d3dedc;--acc:#2f4a52;--acc2:#7a6c9b;--chip:#e2ebe9}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141c1e;--card:#1d282b;--ink:#e7eeed;--mute:#9bb0b4;--line:#2f3f43;--acc:#8fc1c9;--acc2:#b3a6d6;--chip:#27363a}}
-:root[data-theme="dark"]{--bg:#141c1e;--card:#1d282b;--ink:#e7eeed;--mute:#9bb0b4;--line:#2f3f43;--acc:#8fc1c9;--acc2:#b3a6d6;--chip:#27363a}
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f4f8f5;
+  --card:#ffffff;
+  --ink:#2d3a34;
+  --mute:#61756c;
+  --line:#d8e5dd;
+  --acc:#7a9075;
+  --acc-light:#e3ece1;
+  --acc2:#e0c970;
+  --chip:#eaf1eb;
+  --chip-active:#cce0cd;
+  --pastel-yellow:#faf6e1;
+  --pastel-green:#eaf3eb;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a231f;
+    --card:#24302b;
+    --ink:#e4ebe6;
+    --mute:#93a89e;
+    --line:#31423a;
+    --acc:#90a88b;
+    --acc-light:#2c3d34;
+    --acc2:#ebd27a;
+    --chip:#2a3831;
+    --chip-active:#3a5245;
+    --pastel-yellow:#333123;
+    --pastel-green:#243329;
+  }
+}
 *,*:before,*:after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif}
-main{max-width:560px;margin:0 auto;padding:20px 16px 48px}
-h1{font-size:15px;font-weight:500;color:var(--mute);margin:0}
-.now{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px}
-.date{color:var(--mute);margin:0 0 18px;text-transform:capitalize}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
-label{display:block;font-weight:500;margin:14px 0 6px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Quicksand',system-ui,sans-serif}
+main{max-width:620px;margin:0 auto;padding:16px 16px 48px}
+header{text-align:center;margin-bottom:16px}
+.serenity-illustration{width:100%;max-width:180px;height:auto;margin:0 auto 10px;display:block}
+h1{font-size:22px;font-weight:700;color:var(--acc);margin:0}
+.now{font-size:28px;font-weight:700;margin:2px 0 0;color:var(--ink)}
+.date{color:var(--mute);margin:0 0 16px;font-size:14px;text-transform:capitalize}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02)}
+label{display:block;font-weight:600;margin:16px 0 6px;color:var(--ink)}
 label:first-child{margin-top:0}
-small{display:block;color:var(--mute);font-weight:400}
-textarea,input[type=datetime-local]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px}
-textarea{min-height:68px;resize:vertical}
-:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
-#wheel svg{display:block;width:calc(100% + 16px);margin:0 -8px;height:auto;-webkit-tap-highlight-color:transparent}
-.sec{cursor:pointer;outline:none}.sec:focus-visible path{stroke:var(--acc2);stroke-width:6}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--acc);color:var(--bg);border-color:var(--acc)}
-input[type=range]{width:100%;accent-color:var(--acc2)}
-.row{display:flex;justify-content:space-between;color:var(--mute);font-size:14px}
-.btn{width:100%;border:0;border-radius:12px;background:var(--acc);color:var(--bg);font:700 17px Figtree,sans-serif;padding:14px;margin-top:18px;cursor:pointer}
-.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);font-weight:500;font-size:15px;padding:10px;margin-top:8px}
-h2{font-size:20px;margin:28px 0 10px}
-.e{border-left:4px solid var(--acc2)}
-.e time{font-weight:700}
+small{display:block;color:var(--mute);font-weight:400;font-size:13px;margin-top:2px}
+textarea,input[type=datetime-local],input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+textarea{min-height:72px;resize:vertical}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer;transition:all .15s ease}
+.chip[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
+.chip-domain[aria-pressed=true]{background:var(--acc2);color:#3d3410;border-color:var(--acc2)}
+
+input[type=range]{width:100%;accent-color:var(--acc)}
+.row{display:flex;justify-content:space-between;color:var(--mute);font-size:13px}
+.btn{width:100%;border:0;border-radius:14px;background:var(--acc);color:#fff;font:700 16px 'Quicksand',sans-serif;padding:14px;margin-top:18px;cursor:pointer;transition:background .2s}
+.btn:hover{opacity:.95}
+.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);font-weight:600;font-size:14px;padding:10px;margin-top:8px}
+
+.tabs{display:flex;gap:6px;background:var(--chip);border-radius:16px;padding:5px;margin-bottom:20px}
+.tabs button{flex:1;border:0;background:none;color:var(--mute);font:600 14px 'Quicksand',sans-serif;padding:10px 6px;border-radius:12px;cursor:pointer;transition:all .2s}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+
+#wheel svg{display:block;width:calc(100% + 16px);margin:0 -8px;height:auto}
+.sec{cursor:pointer;outline:none}
+
+.stats-section{margin-bottom:24px}
+.stats-title{font-size:16px;font-weight:700;color:var(--acc);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.bar-chart-row{display:flex;align-items:center;margin-bottom:8px;font-size:13px}
+.bar-label{width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:500}
+.bar-track{flex:1;background:var(--chip);height:14px;border-radius:7px;overflow:hidden;margin:0 10px}
+.bar-fill{height:100%;background:var(--acc);border-radius:7px}
+.bar-val{width:30px;text-align:right;color:var(--mute);font-weight:600}
+
+.day-group{border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:var(--card);overflow:hidden}
+.day-header{padding:14px 16px;background:var(--pastel-green);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.day-header:hover{opacity:.9}
+.day-details{padding:12px 16px;border-top:1px solid var(--line)}
+
+.e{border-left:4px solid var(--acc);padding:10px 12px;margin-bottom:10px;background:var(--bg);border-radius:0 12px 12px 0}
+.e time{font-weight:700;font-size:13px;color:var(--mute)}
 .e .tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-.e .tag{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:14px}
-.e p{margin:6px 0}.e b{color:var(--mute);font-weight:500}
-.del{background:none;border:0;color:var(--mute);cursor:pointer;float:right;font:inherit}
-.tabs{display:flex;gap:6px;background:var(--chip);border-radius:12px;padding:4px;margin-bottom:16px}
-.tabs button{flex:1;border:0;background:none;color:var(--mute);font:500 15px Figtree,sans-serif;padding:9px;border-radius:9px;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);font-weight:700}
-.intro{color:var(--mute);margin:0 0 14px}
+.e .tag{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600}
+.e .tag-domain{background:var(--pastel-yellow);color:#544610}
+.e p{margin:6px 0;font-size:14px}.e b{color:var(--mute);font-weight:600}
+.del{background:none;border:0;color:var(--mute);cursor:pointer;float:right;font-size:13px}
+
 details.card{padding:0}
 details summary{padding:14px 16px;font-weight:700;cursor:pointer}
 details .in{padding:0 16px 14px}
-details .in p{margin:0 0 8px}
-details .ex{border-left:3px solid var(--acc2);padding-left:10px;color:var(--mute);font-style:italic}
-[hidden]{display:none!important}
-.day{display:flex;justify-content:space-between;align-items:baseline;margin:22px 2px 8px;text-transform:capitalize}
-.day b{font-size:17px}.day span{color:var(--mute);font-size:14px;text-transform:none}
-.e{padding:12px 16px;margin-bottom:10px}
-.empty{color:var(--mute);text-align:center;padding:20px}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none}
+details .ex{border-left:3px solid var(--acc2);padding-left:10px;color:var(--mute);font-style:italic;margin-top:6px}
+
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:600;font-size:14px;z-index:99}
 #toast.on{opacity:1}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <main>
-  <h1>Mon journal d'émotions</h1>
-  <div class="now" id="clock"></div>
-  <p class="date" id="day"></p>
+  <header>
+    <svg class="serenity-illustration" viewBox="0 0 200 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 70 C 50 40, 70 80, 100 50 C 130 20, 150 60, 180 40" stroke="#7a9075" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="100" cy="35" r="12" fill="#ebd27a" opacity="0.8"/>
+      <path d="M70 75 Q 85 55 100 75 Q 115 55 130 75" stroke="#90a88b" stroke-width="2" fill="none"/>
+    </svg>
+    <h1>Mon journal d'émotions</h1>
+    <div class="now" id="clock"></div>
+    <p class="date" id="day"></p>
+  </header>
 
   <nav class="tabs" role="tablist">
-    <button role="tab" id="t1" aria-selected="true">Journal</button>
-    <button role="tab" id="t2" aria-selected="false">Guide des distorsions</button>
+    <button role="tab" id="t1" aria-selected="true">Nouvelle entrée</button>
+    <button role="tab" id="t2" aria-selected="false">Guide Distorsions</button>
+    <button role="tab" id="t3" aria-selected="false">Historique & Stats</button>
   </nav>
 
+  <!-- ONGLET 1: NOUVELLE ENTRÉE -->
   <div id="v1">
-  <section class="card">
-    <label for="when">Date et heure <small>Enregistrées automatiquement à l'ouverture, modifiables</small></label>
-    <input type="datetime-local" id="when">
+    <section class="card">
+      <label for="when">Date et heure</label>
+      <input type="datetime-local" id="when">
 
-    <label for="body">Ressenti : émotion / sensation <small>Avec vos mots : ce que je ressens dans ma tête ou dans mon corps</small></label>
-    <textarea id="body"></textarea>
+      <label>Domaine de vie <small>Où s'est située la situation ?</small></label>
+      <div class="chips" id="domChips"></div>
+      <div id="otherDomBox" style="margin-top:8px" hidden>
+        <input type="text" id="otherDomText" placeholder="Précisez le domaine (ex: santé, études...)" maxlength="40">
+      </div>
 
-    <label>Roue des émotions <small>Touchez un ou plusieurs visages</small></label>
-    <div id="wheel"></div>
-    <div class="chips" id="chips" style="margin-top:10px"></div>
+      <label for="body">Ressenti : émotion / sensation <small>Ce que je ressens dans ma tête ou dans mon corps</small></label>
+      <textarea id="body"></textarea>
 
-    <label for="int">Intensité du ressenti <small>Facultatif : ne bougez pas le curseur pour ne rien enregistrer</small></label>
-    <input type="range" id="int" min="0" max="100" value="50">
-    <div class="row"><span>Faible</span><b id="intv">50 %</b><span>Maximale</span></div>
+      <label>Roue des émotions <small>Sélectionnez un ou plusieurs visages</small></label>
+      <div id="wheel"></div>
+      <div class="chips" id="chips" style="margin-top:10px"></div>
 
-    <label for="event">Situation / événement <small>Que se passait-il ?</small></label>
-    <textarea id="event"></textarea>
+      <label for="int">Intensité du ressenti <small>Facultatif : ajustez le curseur</small></label>
+      <input type="range" id="int" min="0" max="100" value="50">
+      <div class="row"><span>Faible</span><b id="intv">50 %</b><span>Maximale</span></div>
 
-    <label for="auto">Pensée automatique <small>Ce qui m'est passé par la tête</small></label>
-    <textarea id="auto"></textarea>
+      <label for="event">Situation / événement <small>Que se passait-il ?</small></label>
+      <textarea id="event"></textarea>
 
-    <label>Distorsions possibles <small>Facultatif : quel piège de pensée reconnaissez-vous ? Voir l'onglet Guide</small></label>
-    <div class="chips" id="dchips"></div>
+      <label for="auto">Pensée automatique <small>Ce qui m'est passé par la tête</small></label>
+      <textarea id="auto"></textarea>
 
-    <label for="alt">Pensée alternative <small>Facultatif : une autre façon de voir</small></label>
-    <textarea id="alt"></textarea>
+      <label>Distorsions cognitives <small>Quel piège de pensée reconnaissez-vous ? Voir l'onglet Guide</small></label>
+      <div class="chips" id="dchips"></div>
 
-    <label for="int2">Intensité de l'émotion après réflexion <small>Facultatif : ne bougez pas le curseur pour ne rien enregistrer</small></label>
-    <input type="range" id="int2" min="0" max="100" value="50">
-    <div class="row"><span>Faible</span><b id="intv2">50 %</b><span>Maximale</span></div>
+      <label for="alt">Pensée alternative <small>Une autre façon plus rationnelle ou sereine de voir les choses</small></label>
+      <textarea id="alt"></textarea>
 
-    <button class="btn" id="save">Enregistrer</button>
-  </section>
+      <label for="int2">Intensité de l'émotion après réflexion</label>
+      <input type="range" id="int2" min="0" max="100" value="50">
+      <div class="row"><span>Faible</span><b id="intv2">50 %</b><span>Maximale</span></div>
 
-  <h2>Historique</h2>
-  <div id="list"></div>
-  <section class="card">
-    <label>Exporter pour analyse statistique <small id="count"></small></label>
-    <button class="btn" id="csv" style="margin-top:6px">Exporter en CSV</button>
-    <button class="btn ghost" id="json">Sauvegarde complète (JSON)</button>
-    <button class="btn ghost" id="copy">Copier le CSV</button>
-    <label for="imp" style="margin-top:14px">Restaurer une sauvegarde JSON</label>
-    <input type="file" id="imp" accept=".json,application/json">
-  </section>
+      <button class="btn" id="save">Enregistrer l'entrée</button>
+    </section>
   </div>
 
+  <!-- ONGLET 2: GUIDE DES DISTORSIONS -->
   <div id="v2" hidden>
-    <p class="intro">Les distorsions cognitives sont des façons de penser automatiques qui déforment la réalité et entretiennent les émotions difficiles. Les reconnaître aide à formuler une pensée alternative. Une même pensée peut en contenir plusieurs.</p>
+    <div class="card" style="background:var(--pastel-green)">
+      <p style="margin:0;font-size:14px;color:var(--ink)">Les distorsions cognitives sont des schémas de pensée automatiques qui déforment la réalité. Les repérer vous aide à prendre du recul et développer des réflexes TCC positifs.</p>
+    </div>
     <div id="guide"></div>
+  </div>
+
+  <!-- ONGLET 3: HISTORIQUE & STATS -->
+  <div id="v3" hidden>
+    <!-- MODULE STATISTIQUES EXHAUSTIVES -->
+    <section class="card">
+      <h2 style="margin:0 0 16px;font-size:18px;color:var(--acc)">Tableau de bord TCC</h2>
+      
+      <div class="stats-section">
+        <div class="stats-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-5-4 4-3-3"/></svg>
+          Évolution des émotions au fil des jours
+        </div>
+        <div id="chartEvolution" style="overflow-x:auto;padding-bottom:8px"></div>
+      </div>
+
+      <div class="stats-section">
+        <div class="stats-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          Répartition par Domaine
+        </div>
+        <div id="chartDomain"></div>
+      </div>
+
+      <div class="stats-section">
+        <div class="stats-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Termes & Pensées récurrents
+        </div>
+        <div id="chartWords"></div>
+      </div>
+    </section>
+
+    <!-- HISTORIQUE PAR JOUR -->
+    <h2 style="font-size:18px;margin:20px 0 12px">Historique détaillé</h2>
+    <div id="list"></div>
+
+    <!-- EXPORT & RETAIN -->
+    <section class="card" style="margin-top:20px">
+      <label>Sauvegarder ou exporter vos données <small id="count"></small></label>
+      <button class="btn" id="csv" style="margin-top:8px">Exporter en CSV</button>
+      <button class="btn ghost" id="json">Sauvegarde JSON</button>
+      <button class="btn ghost" id="copy">Copier CSV</button>
+      <label for="imp" style="margin-top:14px">Restaurer un fichier JSON</label>
+      <input type="file" id="imp" accept=".json,application/json">
+    </section>
   </div>
 </main>
 <div id="toast" role="status"></div>
 
 <script>
 const $=id=>document.getElementById(id);
+const DOMAINES=["Famille","Couple","Amitié","Travail","Autre"];
 const EMO=["Joie","Tristesse","Colère","Peur","Anxiété","Honte","Culpabilité","Dégoût","Frustration","Solitude","Calme","Fierté","Surprise","Épuisement"];
+const EMO_COLORS={"Joie":"#f7da7b","Tristesse":"#9bbfe3","Colère":"#ee8f84","Peur":"#c3a8e0","Anxiété":"#d6b0dc","Calme":"#a9dccb","Frustration":"#f0a584","Épuisement":"#c4c0d4","Solitude":"#b3b6e6","Fierté":"#f5bf7a"};
 const WHEEL=[["Joie","#f7da7b"],["Fierté","#f5bf7a"],["Surprise","#f3c9a0"],["Calme","#a9dccb"],["Tristesse","#9bbfe3"],["Solitude","#b3b6e6"],["Épuisement","#c4c0d4"],["Peur","#c3a8e0"],["Anxiété","#d6b0dc"],["Honte","#eab0c6"],["Culpabilité","#e8a5a5"],["Colère","#ee8f84"],["Frustration","#f0a584"],["Dégoût","#b9d78f"]];
+
 const EY=(x,y,r=2.6)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#1f2d31" stroke="none"/>`;
 const PA=(d,f="none")=>`<path d="${d}" fill="${f}"/>`;
 const TEAR='<path d="M-9 1q-2.5 4 0 6q2.5-2 0-6z" fill="#7fb4ea" stroke="none"/>';
@@ -154,18 +257,19 @@ Colère:[ANGB+EY(-8,-1)+EY(8,-1)+PA("M-8 13Q0 6 8 13")],
 Frustration:[ANGB+EY(-8,-2)+EY(8,-2)+PA("M-9 9H9V14H-9Z","#fff")+PA("M-3 9V14")+PA("M3 9V14")],
 Dégoût:[PA("M-12-7L-5-4L-12-1")+PA("M12-7L5-4L12-1")+PA("M-9 11Q-4.5 8 0 11Q4.5 14 9 11")+'<path d="M-2 12q0 6 4 6q4 0 4-6z" fill="#f28aa5"/>']
 };
-const FBG={Colère:"#ffd9d2",Frustration:"#ffe3d3",Dégoût:"#e3f2c8"};
-function face(n){return `<circle r="24" fill="${FBG[n]||"#fffdf5"}"/>`+FACES[n][0]}
+
+function face(n){return `<circle r="24" fill="#fffdf5"/>`+FACES[n][0]}
 function pol(r,a){a=a*Math.PI/180;return [280+r*Math.cos(a),280+r*Math.sin(a)]}
 function sector(i){const w=360/WHEEL.length,a0=-90-w/2+i*w,a1=a0+w,R=276,r=92;
 const [x0,y0]=pol(R,a0),[x1,y1]=pol(R,a1),[x2,y2]=pol(r,a1),[x3,y3]=pol(r,a0);
 return `M${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 0 0 ${x3} ${y3}Z`}
 function secSVG(i,on){const [n,c]=WHEEL[i],mid=-90+i*360/WHEEL.length,[fx,fy]=pol(165,mid),[lx,ly]=pol(235,mid);
 return `<g class="sec" data-n="${n}" role="button" tabindex="0" aria-pressed="${on}" aria-label="${n}">
-<path d="${sector(i)}" fill="${c}" fill-opacity="${on?1:.62}" stroke="${on?"var(--ink)":"var(--card)"}" stroke-width="${on?5:2}" stroke-linejoin="round"/>
+<path d="${sector(i)}" fill="${c}" fill-opacity="${on?1:.65}" stroke="${on?"var(--ink)":"var(--card)"}" stroke-width="${on?5:2}" stroke-linejoin="round"/>
 <g transform="translate(${fx} ${fy}) scale(1.2)" stroke="#1f2d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">${face(n)}</g>
 <text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14.5" font-weight="700" fill="#1f2d31">${n}</text>
-${on?`<g transform="translate(${fx+27} ${fy-27})"><circle r="10" fill="var(--ink)"/><path d="M-4.5 0L-1 3.5L5 -3.5" stroke="var(--bg)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`:""}</g>`}
+${on?`<g transform="translate(${fx+27}${fy-27})"><circle r="10" fill="var(--ink)"/><path d="M-4.5 0L-1 3.5L5 -3.5" stroke="var(--bg)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`:""}</g>`}
+
 let lastN="",focusN="";
 function drawChips(){const idx=WHEEL.map((_,i)=>i),off=idx.filter(i=>!sel.has(WHEEL[i][0])),on=idx.filter(i=>sel.has(WHEEL[i][0]));
 $("wheel").innerHTML=`<svg viewBox="0 0 560 560" role="group" aria-label="Roue des émotions">${off.map(i=>secSVG(i,false)).join("")}${on.map(i=>secSVG(i,true)).join("")}
@@ -176,7 +280,7 @@ $("chips").innerHTML="";[...sel].forEach(n=>{const b=document.createElement("but
 if(focusN){const g=$("wheel").querySelector(`[data-n="${focusN}"]`);g&&g.focus();focusN=""}}
 function pick(g){if(!g)return;const n=g.dataset.n;sel.has(n)?sel.delete(n):sel.add(n);lastN=n;focusN=n;drawChips()}
 $("wheel").addEventListener("click",e=>pick(e.target.closest(".sec")));
-$("wheel").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(e.target.closest(".sec"))}});
+
 const KEY="journal-emotions-v1";
 const GUIDE=[
 ["Catastrophisme","Imaginer le pire scénario et le considérer comme probable.","« Mon patron m'a convoqué : je vais être renvoyé et tout perdre. »"],
@@ -186,69 +290,263 @@ const GUIDE=[
 ["Raisonnement émotionnel","Prendre ce qu'on ressent pour la preuve que c'est vrai.","« Je me sens nul, donc je suis nul. »"],
 ["Disqualification du positif","Écarter les réussites ou les compliments.","« Il dit ça pour être gentil, ça ne compte pas. »"],
 ["Étiquetage","Se coller (ou coller aux autres) une étiquette globale.","« Je suis un raté » plutôt que « j'ai fait une erreur »."],
-["Personnalisation","Se croire responsable de ce qui ne dépend pas de soi.","« Mon ami est de mauvaise humeur, j'ai dû faire quelque chose. »"],
-["Devoirs / « il faut »","Se fixer des règles rigides et se juger sévèrement quand on y déroge.","« Je devrais toujours être efficace et disponible. »"],
-["Filtre mental","Ne retenir que le négatif d'une situation.","« Sur dix remarques, une critique : la présentation était mauvaise. »"],
-["Anticipation négative","Prédire que ça va mal se passer, comme si c'était déjà acquis.","« Je sais que cette soirée sera pénible, autant ne pas y aller. »"]
+["Personnalisation","Se croire responsable de ce qui ne dépend pas de soi.","« Mon ami est de mauvaise humeur, j'ai dû faire quelque شيء. »"],
+["Devoirs / « il faut »","Se fixer des règles rigides et se juger sévèrement.","« Je devrais toujours être efficace et disponible. »"],
+["Filtre mental","Ne retenir que le négatif d'une situation.","« Sur dix remarques, une critique : tout était mauvais. »"],
+["Anticipation négative","Prédire que ça va mal se passer sans nuance.","« Je sais que cette soirée sera pénible, autant ne pas y aller. »"]
 ];
 const DIST=GUIDE.map(g=>g[0]);
-let dsel=new Set(),touched=false,touchedI=false;
-function drawD(){$("dchips").innerHTML="";DIST.forEach(n=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=n;b.setAttribute("aria-pressed",dsel.has(n));b.onclick=()=>{dsel.has(n)?dsel.delete(n):dsel.add(n);drawD()};$("dchips").appendChild(b)})}
-let entries=[],sel=new Set();
+let dsel=new Set(),selectedDomain="Famille",touched=false,touchedI=false,entries=[],sel=new Set();
+
+function drawDomainChips(){
+  const box=$("domChips");box.innerHTML="";
+  DOMAINES.forEach(d=>{
+    const b=document.createElement("button");b.type="button";b.className="chip chip-domain";
+    b.textContent=d;b.setAttribute("aria-pressed",selectedDomain===d);
+    b.onclick=()=>{
+      selectedDomain=d;
+      $("otherDomBox").hidden=(d!=="Autre");
+      drawDomainChips();
+    };
+    box.appendChild(b);
+  });
+}
+
+function drawD(){
+  $("dchips").innerHTML="";
+  DIST.forEach(n=>{
+    const b=document.createElement("button");b.type="button";b.className="chip";
+    b.textContent=n;b.setAttribute("aria-pressed",dsel.has(n));
+    b.onclick=()=>{dsel.has(n)?dsel.delete(n):dsel.add(n);drawD()};
+    $("dchips").appendChild(b);
+  });
+}
+
 function load(){try{entries=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){entries=[]}}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(entries))}catch(e){toast("Stockage indisponible")}}
 function toast(t){const x=$("toast");x.textContent=t;x.classList.add("on");setTimeout(()=>x.classList.remove("on"),1800)}
 function localISO(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
 function tick(){const d=new Date();$("clock").textContent=d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
 $("day").textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
-function fmt(iso){return new Date(iso).toLocaleString("fr-FR",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
-function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function resetForm(){$("when").value=localISO(new Date());["event","body","auto","alt"].forEach(i=>$(i).value="");
-$("int").value=50;$("intv").textContent="50 %";$("int2").value=50;$("intv2").textContent="50 %";touched=false;touchedI=false;sel.clear();dsel.clear();drawD();drawChips()}
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function resetForm(){
+  $("when").value=localISO(new Date());
+  ["event","body","auto","alt","otherDomText"].forEach(i=>$(i).value="");
+  $("int").value=50;$("intv").textContent="50 %";$("int2").value=50;$("intv2").textContent="50 %";
+  touched=false;touchedI=false;sel.clear();dsel.clear();selectedDomain="Famille";
+  $("otherDomBox").hidden=true;
+  drawDomainChips();drawD();drawChips();
+}
+
 function dayKey(w){return w.slice(0,10)}
-function dayLabel(k){return new Date(k+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
-function render(){const L=$("list");$("count").textContent=entries.length+" entrée"+(entries.length>1?"s":"")+" enregistrée"+(entries.length>1?"s":"");
-if(!entries.length){L.innerHTML='<div class="card empty">Aucune entrée. Votre première apparaîtra ici.</div>';return}
-const g={};entries.forEach(e=>(g[dayKey(e.when)]=g[dayKey(e.when)]||[]).push(e));
-L.innerHTML=Object.keys(g).sort().reverse().map(k=>{const A=g[k];const V=A.filter(e=>e.intensity!=null),m=V.length?Math.round(V.reduce((t,e)=>t+e.intensity,0)/V.length):null;
-return `<div class="day"><b>${dayLabel(k)}</b><span>${A.length} entrée${A.length>1?"s":""}${m!=null?" · intensité moy. "+m+" %":""}</span></div>`+
-A.map(e=>`<article class="card e"><button class="del" data-id="${e.id}" aria-label="Supprimer">Supprimer</button>
-<time>${new Date(e.when).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</time>
-<div class="tags">${e.emotions.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}${e.intensity!=null||e.after!=null?`<span class="tag">${e.intensity!=null?e.intensity+" %":"?"}${e.after!=null?" → "+e.after+" %":""}</span>`:""}</div>
-${(e.dist||[]).length?`<div class="tags">${e.dist.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>`:""}
-${e.event?`<p><b>Événement</b><br>${esc(e.event)}</p>`:""}
-${e.body?`<p><b>Ressenti</b><br>${esc(e.body)}</p>`:""}
-${e.auto?`<p><b>Pensée automatique</b><br>${esc(e.auto)}</p>`:""}
-${e.alt?`<p><b>Pensée alternative</b><br>${esc(e.alt)}</p>`:""}</article>`).join("")}).join("")}
+function dayLabel(k){return new Date(k+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})}
+
+function renderStats(){
+  if(!entries.length){
+    $("chartEvolution").innerHTML='<small>Aucune donnée à analyser.</small>';
+    $("chartDomain").innerHTML='<small>Aucune donnée à analyser.</small>';
+    $("chartWords").innerHTML='<small>Aucune donnée à analyser.</small>';
+    return;
+  }
+
+  // 1. STATS DOMAINES
+  const domCounts={};
+  entries.forEach(e=>{
+    const d=(e.domain==="Autre" && e.domainOther)?e.domainOther:(e.domain||"Famille");
+    domCounts[d]=(domCounts[d]||0)+1;
+  });
+  const maxDom=Math.max(...Object.values(domCounts),1);
+  $("chartDomain").innerHTML=Object.entries(domCounts).map(([d,cnt])=>`
+    <div class="bar-chart-row">
+      <div class="bar-label">${esc(d)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxDom*100)}%;background:var(--acc2)"></div></div>
+      <div class="bar-val">${cnt}</div>
+    </div>
+  `).join("");
+
+  // 2. STATS TERMES RÉCURRENTS
+  const words={};
+  const stopWords=new Set(["de","la","le","les","un","une","des","et","en","a","dans","pour","pas","que","qui","ce","sur","ne","je","me","ma","mon","mes","avec","se","du","est"]);
+  entries.forEach(e=>{
+    const text=(e.auto+" "+e.body+" "+e.event).toLowerCase();
+    text.match(/[a-zàâçéèêëîïôûùüÿñæœ]+/gi)?.forEach(w=>{
+      if(w.length>2 && !stopWords.has(w)){words[w]=(words[w]||0)+1;}
+    });
+  });
+  const sortedWords=Object.entries(words).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxWord=sortedWords[0]?sortedWords[0][1]:1;
+  $("chartWords").innerHTML=sortedWords.length?sortedWords.map(([w,cnt])=>`
+    <div class="bar-chart-row">
+      <div class="bar-label">${esc(w)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxWord*100)}%"></div></div>
+      <div class="bar-val">${cnt}</div>
+    </div>
+  `).join("") : '<small>Rédigez plus de détails pour faire ressortir les mots récurrents.</small>';
+
+  // 3. COURBE D'ÉVOLUTION TEMPORELLE
+  const dates=[...new Set(entries.map(e=>dayKey(e.when)))].sort();
+  if(dates.length<2){
+    $("chartEvolution").innerHTML='<small>Saisissez des entrées sur au moins 2 jours pour afficher la courbe.</small>';
+    return;
+  }
+  const emosToTrack=["Anxiété","Tristesse","Joie","Colère"].filter(m=>entries.some(e=>e.emotions.includes(m)));
+  const width=Math.max(320, dates.length*50);
+  let svg=`<svg width="${width}" height="140" viewBox="0 0 ${width} 140" style="background:var(--bg);border-radius:12px;padding:10px">`;
+  
+  emosToTrack.forEach(emo=>{
+    const pts=dates.map((d,i)=>{
+      const dayEntries=entries.filter(e=>dayKey(e.when)===d && e.emotions.includes(emo));
+      const avgInt=dayEntries.length? dayEntries.reduce((a,b)=>a+(b.intensity||50),0)/dayEntries.length : 0;
+      const x=30 + (i/(dates.length-1))*(width-60);
+      const y=110 - (avgInt/100)*90;
+      return {x,y,avgInt};
+    });
+    const strokeColor=EMO_COLORS[emo]||"var(--acc)";
+    const pathD=pts.map((p,i)=>(i===0?"M":"L")+` ${p.x} ${p.y}`).join(" ");
+    svg+=`<path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="3" stroke-linecap="round"/>`;
+    pts.forEach(p=>{
+      if(p.avgInt>0) svg+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${strokeColor}"/>`;
+    });
+  });
+  
+  // Axes & Légendes
+  dates.forEach((d,i)=>{
+    const x=30 + (i/(dates.length-1))*(width-60);
+    svg+=`<text x="${x}" y="130" font-size="10" text-anchor="middle" fill="var(--mute)">${d.slice(5)}</text>`;
+  });
+  svg+='</svg>';
+  
+  // Légende
+  const legend=emosToTrack.map(m=>`<span style="font-size:11px;margin-right:8px;font-weight:600;color:${EMO_COLORS[m]||"var(--acc)"}">● ${m}</span>`).join("");
+  $("chartEvolution").innerHTML=svg+`<div style="margin-top:6px">${legend}</div>`;
+}
+
+function renderList(){
+  const L=$("list");
+  $("count").textContent=entries.length+" entrée"+(entries.length>1?"s":"")+" enregistrée"+(entries.length>1?"s":"");
+  if(!entries.length){L.innerHTML='<div class="card" style="text-align:center;color:var(--mute)">Aucune entrée. Enregistrez votre premier ressenti !</div>';return}
+  
+  const g={};entries.forEach(e=>(g[dayKey(e.when)]=g[dayKey(e.when)]||[]).push(e));
+  
+  L.innerHTML=Object.keys(g).sort().reverse().map(k=>{
+    const A=g[k];
+    const domStr=[...new Set(A.map(e=>e.domain||"Famille"))].join(", ");
+    return `
+      <div class="day-group">
+        <div class="day-header" onclick="this.nextElementSibling.hidden = !this.nextElementSibling.hidden">
+          <span>${dayLabel(k)} <small style="display:inline;margin-left:6px">(${A.length} entrée${A.length>1?"s":""})</small></span>
+          <span style="font-size:12px;font-weight:500;color:var(--mute)">${esc(domStr)} ▼</span>
+        </div>
+        <div class="day-details">
+          ${A.map(e=>`
+            <article class="e">
+              <button class="del" data-id="${e.id}">Supprimer</button>
+              <time>${new Date(e.when).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</time>
+              <div class="tags">
+                <span class="tag tag-domain">${esc((e.domain==="Autre"&&e.domainOther)?e.domainOther:(e.domain||"Famille"))}</span>
+                ${e.emotions.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}
+                ${e.intensity!=null?`<span class="tag">${e.intensity}%${e.after!=null?' → '+e.after+'%':''}</span>`:''}
+              </div>
+              ${(e.dist||[]).length?`<div class="tags">${e.dist.map(x=>`<span class="tag" style="background:var(--pastel-yellow);color:#5d4b07">${esc(x)}</span>`).join("")}</div>`:''}
+              ${e.event?`<p><b>Événement :</b> ${esc(e.event)}</p>`:''}
+              ${e.body?`<p><b>Ressenti :</b> ${esc(e.body)}</p>`:''}
+              ${e.auto?`<p><b>Pensée automatique :</b> ${esc(e.auto)}</p>`:''}
+              ${e.alt?`<p><b>Pensée alternative :</b> ${esc(e.alt)}</p>`:''}
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
 $("int2").oninput=()=>{touched=true;$("intv2").textContent=$("int2").value+" %"};
 $("int").oninput=()=>{touchedI=true;$("intv").textContent=$("int").value+" %"};
-$("save").onclick=()=>{const e={id:Date.now(),when:$("when").value||localISO(new Date()),event:$("event").value.trim(),emotions:[...sel],
-intensity:touchedI?+$("int").value:null,after:touched?+$("int2").value:null,dist:[...dsel],body:$("body").value.trim(),auto:$("auto").value.trim(),alt:$("alt").value.trim()};
-entries.unshift(e);entries.sort((a,b)=>b.when.localeCompare(a.when));persist();render();resetForm();toast("Enregistré")};
-$("list").onclick=ev=>{const id=ev.target.dataset.id;if(id&&confirm("Supprimer cette entrée ?")){entries=entries.filter(e=>e.id!=id);persist();render()}};
-const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
-function csvText(){const q=v=>'"'+String(v??"").replace(/"/g,'""').replace(/\s*\n\s*/g," ")+'"';
-const H=["id","date","heure","jour_semaine","situation","emotions",...EMO.map(n=>"emo_"+n),"intensite_avant","intensite_apres","variation","ressenti","pensee_automatique","pensee_alternative","distorsions",...DIST.map(n=>"dist_"+n)];
-const rows=[...entries].sort((a,b)=>a.when.localeCompare(b.when)).map(e=>{const d=new Date(e.when);
-return [e.id,e.when.slice(0,10),e.when.slice(11,16),JOURS[d.getDay()],q(e.event),q(e.emotions.join("|")),...EMO.map(n=>e.emotions.includes(n)?1:0),
-e.intensity??"",e.after??"",e.after!=null&&e.intensity!=null?e.after-e.intensity:"",q(e.body),q(e.auto),q(e.alt),q((e.dist||[]).join("|")),...DIST.map(n=>(e.dist||[]).includes(n)?1:0)].join(";")});
-return "\ufeff"+H.join(";")+"\r\n"+rows.join("\r\n")}
-async function save(name,data){if(!entries.length){toast("Rien à exporter");return}
-let dl=null;try{dl=await (window.claude&&claude.use("downloads"))}catch(e){}
-if(dl){try{await dl.save({filename:name,data});toast("Fichier prêt")}catch(e){if(e&&e.code!=="declined")toast("Export impossible")}return}
-try{const u=URL.createObjectURL(new Blob([data],{type:"text/plain;charset=utf-8"}));const a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast("Fichier téléchargé");return}catch(e){}
-try{await navigator.clipboard.writeText(data);toast("Téléchargement indisponible : copié")}catch(e){toast("Export impossible")}}
-const stamp=()=>localISO(new Date()).slice(0,10);
-$("csv").onclick=()=>save("journal-emotions-"+stamp()+".csv",csvText());
-$("json").onclick=()=>save("journal-emotions-sauvegarde-"+stamp()+".json",JSON.stringify(entries,null,1));
-$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(csvText());toast("CSV copié")}catch(e){toast("Copie impossible")}};
-$("imp").onchange=async ev=>{const f=ev.target.files[0];if(!f)return;try{const a=JSON.parse(await f.text());if(!Array.isArray(a))throw 0;
-const ids=new Set(entries.map(e=>e.id));let n=0;a.forEach(e=>{if(e&&e.when&&Array.isArray(e.emotions)&&!ids.has(e.id)){entries.push(e);n++}});
-entries.sort((a,b)=>b.when.localeCompare(a.when));persist();render();toast(n+" entrée(s) ajoutée(s)")}catch(e){toast("Fichier invalide")}ev.target.value=""};
-function tab(n){$("v1").hidden=n!=1;$("v2").hidden=n!=2;$("t1").setAttribute("aria-selected",n==1);$("t2").setAttribute("aria-selected",n==2);scrollTo(0,0)}
-$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
+
+$("save").onclick=()=>{
+  const e={
+    id:Date.now(),
+    when:$("when").value||localISO(new Date()),
+    domain:selectedDomain,
+    domainOther:$("otherDomText").value.trim(),
+    event:$("event").value.trim(),
+    emotions:[...sel],
+    intensity:touchedI?+$("int").value:null,
+    after:touched?+$("int2").value:null,
+    dist:[...dsel],
+    body:$("body").value.trim(),
+    auto:$("auto").value.trim(),
+    alt:$("alt").value.trim()
+  };
+  entries.unshift(e);
+  entries.sort((a,b)=>b.when.localeCompare(a.when));
+  persist();
+  resetForm();
+  toast("Entrée enregistrée avec succès");
+};
+
+$("list").onclick=ev=>{
+  const id=ev.target.dataset.id;
+  if(id&&confirm("Supprimer cette entrée ?")){
+    entries=entries.filter(e=>e.id!=id);
+    persist();
+    renderList();
+    renderStats();
+  }
+};
+
+function tab(n){
+  $("v1").hidden=n!=1; $("v2").hidden=n!=2; $("v3").hidden=n!=3;
+  $("t1").setAttribute("aria-selected",n==1);
+  $("t2").setAttribute("aria-selected",n==2);
+  $("t3").setAttribute("aria-selected",n==3);
+  if(n===3){ renderList(); renderStats(); }
+  window.scrollTo(0,0);
+}
+$("t1").onclick=()=>tab(1);
+$("t2").onclick=()=>tab(2);
+$("t3").onclick=()=>tab(3);
+
 $("guide").innerHTML=GUIDE.map(g=>`<details class="card"><summary>${esc(g[0])}</summary><div class="in"><p>${esc(g[1])}</p><p class="ex">${esc(g[2])}</p></div></details>`).join("");
-load();tick();setInterval(tick,15000);resetForm();render();
+
+// Export CSV & JSON
+const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+function csvText(){
+  const q=v=>'"'+String(v??"").replace(/"/g,'""').replace(/\s*\n\s*/g," ")+'"';
+  const H=["id","date","heure","jour_semaine","domaine","situation","emotions","intensite_avant","intensite_apres","ressenti","pensee_automatique","pensee_alternative","distorsions"];
+  const rows=[...entries].sort((a,b)=>a.when.localeCompare(b.when)).map(e=>{
+    const d=new Date(e.when);
+    return [e.id,e.when.slice(0,10),e.when.slice(11,16),JOURS[d.getDay()],q((e.domain==="Autre"&&e.domainOther)?e.domainOther:(e.domain||"Famille")),q(e.event),q(e.emotions.join("|")),e.intensity??"",e.after??"",q(e.body),q(e.auto),q(e.alt),q((e.dist||[]).join("|"))].join(";");
+  });
+  return "\ufeff"+H.join(";")+"\r\n"+rows.join("\r\n");
+}
+
+async function saveFile(name,data){
+  if(!entries.length){toast("Rien à exporter");return}
+  try{
+    const u=URL.createObjectURL(new Blob([data],{type:"text/plain;charset=utf-8"}));
+    const a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),4000);toast("Fichier téléchargé");
+  }catch(e){toast("Export impossible");}
+}
+
+const stamp=()=>localISO(new Date()).slice(0,10);
+$("csv").onclick=()=>saveFile("journal-tcc-"+stamp()+".csv",csvText());
+$("json").onclick=()=>saveFile("journal-tcc-backup-"+stamp()+".json",JSON.stringify(entries,null,1));
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(csvText());toast("CSV copié")}catch(e){toast("Erreur copie")}};
+
+$("imp").onchange=async ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  try{
+    const a=JSON.parse(await f.text());if(!Array.isArray(a))throw 0;
+    const ids=new Set(entries.map(e=>e.id));let n=0;
+    a.forEach(e=>{if(e&&e.when&&!ids.has(e.id)){entries.push(e);n++}});
+    entries.sort((a,b)=>b.when.localeCompare(a.when));persist();renderList();renderStats();toast(n+" entrée(s) importée(s)");
+  }catch(e){toast("Fichier JSON invalide")}ev.target.value="";
+};
+
+load();tick();setInterval(tick,15000);resetForm();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
