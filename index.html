@@ -23,9 +23,8 @@
   --line:#d8e5dd;
   --acc:#7a9075;
   --acc-light:#e3ece1;
-  --acc2:#e0c970;
+  --acc2:#ebd27a;
   --chip:#eaf1eb;
-  --chip-active:#cce0cd;
   --pastel-yellow:#faf6e1;
   --pastel-green:#eaf3eb;
 }
@@ -40,57 +39,74 @@
     --acc-light:#2c3d34;
     --acc2:#ebd27a;
     --chip:#2a3831;
-    --chip-active:#3a5245;
     --pastel-yellow:#333123;
     --pastel-green:#243329;
   }
 }
 *,*:before,*:after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Quicksand',system-ui,sans-serif}
-main{max-width:620px;margin:0 auto;padding:16px 16px 48px}
-header{text-align:center;margin-bottom:16px}
-.serenity-illustration{width:100%;max-width:180px;height:auto;margin:0 auto 10px;display:block}
-h1{font-size:22px;font-weight:700;color:var(--acc);margin:0}
-.now{font-size:28px;font-weight:700;margin:2px 0 0;color:var(--ink)}
-.date{color:var(--mute);margin:0 0 16px;font-size:14px;text-transform:capitalize}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Quicksand',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02)}
-label{display:block;font-weight:600;margin:16px 0 6px;color:var(--ink)}
-label:first-child{margin-top:0}
-small{display:block;color:var(--mute);font-weight:400;font-size:13px;margin-top:2px}
-textarea,input[type=datetime-local],input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-textarea{min-height:72px;resize:vertical}
+.screen{display:none;opacity:0;transition:opacity .35s ease-in-out;width:100%;min-height:100vh;box-sizing:border-box}
+.screen.active{display:flex;flex-direction:column;opacity:1}
+
+.home-container{max-width:480px;margin:auto;padding:32px 20px;text-align:center;width:100%}
+.serenity-illustration{width:100%;max-width:180px;height:auto;margin:0 auto 16px;display:block}
+h1{font-size:26px;font-weight:700;color:var(--acc);margin:0 0 6px}
+.now{font-size:32px;font-weight:700;margin:0;color:var(--ink)}
+.date{color:var(--mute);margin:0 0 32px;font-size:15px;text-transform:capitalize}
+
+.home-menu{display:flex;flex-direction:column;gap:14px}
+.menu-btn{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;font:700 16px 'Quicksand',sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:space-between;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.02);transition:transform .1s, border-color .1s}
+.menu-btn:active{transform:scale(0.98)}
+.menu-btn span{display:flex;align-items:center;gap:12px}
+.menu-btn .icon{font-size:22px}
+
+.header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--card)}
+.nav-back{background:none;border:none;color:var(--acc);font-size:24px;cursor:pointer;padding:4px 8px;display:flex;align-items:center}
+.header-title{font-size:18px;font-weight:700;color:var(--ink);margin:0}
+
+.wizard-container{flex:1;display:flex;flex-direction:column;max-width:600px;margin:0 auto;width:100%;padding:20px;box-sizing:border-box}
+.wizard-step{display:none;opacity:0;transition:opacity .3s ease;flex:1;flex-direction:column;justify-content:center}
+.wizard-step.active{display:flex;opacity:1}
+
+.step-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,0.03)}
+.step-card label{display:block;font-size:18px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.step-card small{display:block;color:var(--mute);font-weight:400;font-size:14px;margin-bottom:16px}
+
+textarea,input[type=datetime-local],input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+textarea{min-height:100px;resize:vertical}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer;transition:all .15s ease}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:8px 16px;font:inherit;font-size:14px;cursor:pointer;transition:all .15s ease}
 .chip[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
 .chip-domain[aria-pressed=true]{background:var(--acc2);color:#3d3410;border-color:var(--acc2)}
 
-input[type=range]{width:100%;accent-color:var(--acc)}
-.row{display:flex;justify-content:space-between;color:var(--mute);font-size:13px}
-.btn{width:100%;border:0;border-radius:14px;background:var(--acc);color:#fff;font:700 16px 'Quicksand',sans-serif;padding:14px;margin-top:18px;cursor:pointer;transition:background .2s}
-.btn:hover{opacity:.95}
-.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);font-weight:600;font-size:14px;padding:10px;margin-top:8px}
+input[type=range]{width:100%;accent-color:var(--acc);margin:16px 0 8px}
+.row{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;font-weight:600}
+.range-val{text-align:center;font-size:32px;font-weight:700;color:var(--acc);margin-top:8px}
 
-.tabs{display:flex;gap:6px;background:var(--chip);border-radius:16px;padding:5px;margin-bottom:20px}
-.tabs button{flex:1;border:0;background:none;color:var(--mute);font:600 14px 'Quicksand',sans-serif;padding:10px 6px;border-radius:12px;cursor:pointer;transition:all .2s}
-.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+.wizard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:10px}
+.btn-arrow{background:var(--acc);color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.btn-arrow:disabled{opacity:0.3;cursor:not-allowed}
+.btn-finish{background:var(--acc);color:#fff;border:none;border-radius:16px;padding:14px 24px;font:700 16px 'Quicksand',sans-serif;cursor:pointer}
+
+.content-container{max-width:620px;margin:0 auto;padding:20px;width:100%;box-sizing:border-box}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02)}
 
 #wheel svg{display:block;width:calc(100% + 16px);margin:0 -8px;height:auto}
 .sec{cursor:pointer;outline:none}
 
 .stats-section{margin-bottom:24px}
-.stats-title{font-size:16px;font-weight:700;color:var(--acc);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.stats-title{font-size:15px;font-weight:700;color:var(--acc);margin:0 0 12px}
 .bar-chart-row{display:flex;align-items:center;margin-bottom:8px;font-size:13px}
-.bar-label{width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:500}
+.bar-label{width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:500}
 .bar-track{flex:1;background:var(--chip);height:14px;border-radius:7px;overflow:hidden;margin:0 10px}
 .bar-fill{height:100%;background:var(--acc);border-radius:7px}
-.bar-val{width:30px;text-align:right;color:var(--mute);font-weight:600}
+.bar-val{width:28px;text-align:right;color:var(--mute);font-weight:600}
 
 .day-group{border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:var(--card);overflow:hidden}
 .day-header{padding:14px 16px;background:var(--pastel-green);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700}
-.day-header:hover{opacity:.9}
 .day-details{padding:12px 16px;border-top:1px solid var(--line)}
 
 .e{border-left:4px solid var(--acc);padding:10px 12px;margin-bottom:10px;background:var(--bg);border-radius:0 12px 12px 0}
@@ -106,448 +122,120 @@ details summary{padding:14px 16px;font-weight:700;cursor:pointer}
 details .in{padding:0 16px 14px}
 details .ex{border-left:3px solid var(--acc2);padding-left:10px;color:var(--mute);font-style:italic;margin-top:6px}
 
+.btn{width:100%;border:0;border-radius:14px;background:var(--acc);color:#fff;font:700 16px 'Quicksand',sans-serif;padding:14px;margin-top:18px;cursor:pointer}
+.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);font-weight:600;font-size:14px;padding:10px;margin-top:8px}
+
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:600;font-size:14px;z-index:99}
 #toast.on{opacity:1}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <svg class="serenity-illustration" viewBox="0 0 200 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 70 C 50 40, 70 80, 100 50 C 130 20, 150 60, 180 40" stroke="#7a9075" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <circle cx="100" cy="35" r="12" fill="#ebd27a" opacity="0.8"/>
-      <path d="M70 75 Q 85 55 100 75 Q 115 55 130 75" stroke="#90a88b" stroke-width="2" fill="none"/>
+
+<!-- ÉCRAN D'ACCUEIL -->
+<div id="screen-home" class="screen active">
+  <div class="home-container">
+    <svg class="serenity-illustration" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 60 C 50 30, 70 70, 100 40 C 130 10, 150 50, 180 30" stroke="#7a9075" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="100" cy="28" r="10" fill="#ebd27a" opacity="0.8"/>
     </svg>
-    <h1>Mon journal d'émotions</h1>
+    <h1>Mon journal TCC</h1>
     <div class="now" id="clock"></div>
     <p class="date" id="day"></p>
-  </header>
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" id="t1" aria-selected="true">Nouvelle entrée</button>
-    <button role="tab" id="t2" aria-selected="false">Guide Distorsions</button>
-    <button role="tab" id="t3" aria-selected="false">Historique & Stats</button>
-  </nav>
+    <div class="home-menu">
+      <button class="menu-btn" onclick="startWizard()">
+        <span><span class="icon">✏️</span> Nouvelle entrée</span>
+        <span>➔</span>
+      </button>
+      <button class="menu-btn" onclick="showScreen('screen-guide')">
+        <span><span class="icon">📖</span> Guide Distorsions</span>
+        <span>➔</span>
+      </button>
+      <button class="menu-btn" onclick="showScreen('screen-history')">
+        <span><span class="icon">📊</span> Historique & Stats</span>
+        <span>➔</span>
+      </button>
+    </div>
+  </div>
+</div>
 
-  <!-- ONGLET 1: NOUVELLE ENTRÉE -->
-  <div id="v1">
-    <section class="card">
-      <label for="when">Date et heure</label>
-      <input type="datetime-local" id="when">
-
-      <label>Domaine de vie <small>Où s'est située la situation ?</small></label>
-      <div class="chips" id="domChips"></div>
-      <div id="otherDomBox" style="margin-top:8px" hidden>
-        <input type="text" id="otherDomText" placeholder="Précisez le domaine (ex: santé, études...)" maxlength="40">
-      </div>
-
-      <label for="body">Ressenti : émotion / sensation <small>Ce que je ressens dans ma tête ou dans mon corps</small></label>
-      <textarea id="body"></textarea>
-
-      <label>Roue des émotions <small>Sélectionnez un ou plusieurs visages</small></label>
-      <div id="wheel"></div>
-      <div class="chips" id="chips" style="margin-top:10px"></div>
-
-      <label for="int">Intensité du ressenti <small>Facultatif : ajustez le curseur</small></label>
-      <input type="range" id="int" min="0" max="100" value="50">
-      <div class="row"><span>Faible</span><b id="intv">50 %</b><span>Maximale</span></div>
-
-      <label for="event">Situation / événement <small>Que se passait-il ?</small></label>
-      <textarea id="event"></textarea>
-
-      <label for="auto">Pensée automatique <small>Ce qui m'est passé par la tête</small></label>
-      <textarea id="auto"></textarea>
-
-      <label>Distorsions cognitives <small>Quel piège de pensée reconnaissez-vous ? Voir l'onglet Guide</small></label>
-      <div class="chips" id="dchips"></div>
-
-      <label for="alt">Pensée alternative <small>Une autre façon plus rationnelle ou sereine de voir les choses</small></label>
-      <textarea id="alt"></textarea>
-
-      <label for="int2">Intensité de l'émotion après réflexion</label>
-      <input type="range" id="int2" min="0" max="100" value="50">
-      <div class="row"><span>Faible</span><b id="intv2">50 %</b><span>Maximale</span></div>
-
-      <button class="btn" id="save">Enregistrer l'entrée</button>
-    </section>
+<!-- ÉCRAN NOUVELLE ENTRÉE (WIZARD) -->
+<div id="screen-journal" class="screen">
+  <div class="header-bar">
+    <button class="nav-back" onclick="showScreen('screen-home')">➔</button>
+    <div class="header-title" id="wizardProgress">Étape 1 sur 8</div>
+    <div style="width:24px"></div>
   </div>
 
-  <!-- ONGLET 2: GUIDE DES DISTORSIONS -->
-  <div id="v2" hidden>
-    <div class="card" style="background:var(--pastel-green)">
-      <p style="margin:0;font-size:14px;color:var(--ink)">Les distorsions cognitives sont des schémas de pensée automatiques qui déforment la réalité. Les repérer vous aide à prendre du recul et développer des réflexes TCC positifs.</p>
+  <div class="wizard-container">
+    <!-- Étape 1 : Horodatage & Domaine -->
+    <div class="wizard-step active" id="step-0">
+      <div class="step-card">
+        <label for="when">Date et heure</label>
+        <input type="datetime-local" id="when">
+
+        <label style="margin-top:20px">Domaine de vie <small>Où s'est située la situation ?</small></label>
+        <div class="chips" id="domChips"></div>
+        <div id="otherDomBox" style="margin-top:12px" hidden>
+          <input type="text" id="otherDomText" placeholder="Précisez le domaine..." maxlength="40">
+        </div>
+      </div>
     </div>
-    <div id="guide"></div>
-  </div>
 
-  <!-- ONGLET 3: HISTORIQUE & STATS -->
-  <div id="v3" hidden>
-    <!-- MODULE STATISTIQUES EXHAUSTIVES -->
-    <section class="card">
-      <h2 style="margin:0 0 16px;font-size:18px;color:var(--acc)">Tableau de bord TCC</h2>
-      
-      <div class="stats-section">
-        <div class="stats-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-5-4 4-3-3"/></svg>
-          Évolution des émotions au fil des jours
-        </div>
-        <div id="chartEvolution" style="overflow-x:auto;padding-bottom:8px"></div>
+    <!-- Étape 2 : Situation -->
+    <div class="wizard-step" id="step-1">
+      <div class="step-card">
+        <label for="event">Situation / Événement</label>
+        <small>Que s'est-il passé ? Décrivez les faits objectivement.</small>
+        <textarea id="event" placeholder="Ex: Réunion de travail, discussion avec..."></textarea>
       </div>
-
-      <div class="stats-section">
-        <div class="stats-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
-          Répartition par Domaine
-        </div>
-        <div id="chartDomain"></div>
-      </div>
-
-      <div class="stats-section">
-        <div class="stats-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Termes & Pensées récurrents
-        </div>
-        <div id="chartWords"></div>
-      </div>
-    </section>
-
-    <!-- HISTORIQUE PAR JOUR -->
-    <h2 style="font-size:18px;margin:20px 0 12px">Historique détaillé</h2>
-    <div id="list"></div>
-
-    <!-- EXPORT & RETAIN -->
-    <section class="card" style="margin-top:20px">
-      <label>Sauvegarder ou exporter vos données <small id="count"></small></label>
-      <button class="btn" id="csv" style="margin-top:8px">Exporter en CSV</button>
-      <button class="btn ghost" id="json">Sauvegarde JSON</button>
-      <button class="btn ghost" id="copy">Copier CSV</button>
-      <label for="imp" style="margin-top:14px">Restaurer un fichier JSON</label>
-      <input type="file" id="imp" accept=".json,application/json">
-    </section>
-  </div>
-</main>
-<div id="toast" role="status"></div>
-
-<script>
-const $=id=>document.getElementById(id);
-const DOMAINES=["Famille","Couple","Amitié","Travail","Autre"];
-const EMO=["Joie","Tristesse","Colère","Peur","Anxiété","Honte","Culpabilité","Dégoût","Frustration","Solitude","Calme","Fierté","Surprise","Épuisement"];
-const EMO_COLORS={"Joie":"#f7da7b","Tristesse":"#9bbfe3","Colère":"#ee8f84","Peur":"#c3a8e0","Anxiété":"#d6b0dc","Calme":"#a9dccb","Frustration":"#f0a584","Épuisement":"#c4c0d4","Solitude":"#b3b6e6","Fierté":"#f5bf7a"};
-const WHEEL=[["Joie","#f7da7b"],["Fierté","#f5bf7a"],["Surprise","#f3c9a0"],["Calme","#a9dccb"],["Tristesse","#9bbfe3"],["Solitude","#b3b6e6"],["Épuisement","#c4c0d4"],["Peur","#c3a8e0"],["Anxiété","#d6b0dc"],["Honte","#eab0c6"],["Culpabilité","#e8a5a5"],["Colère","#ee8f84"],["Frustration","#f0a584"],["Dégoût","#b9d78f"]];
-
-const EY=(x,y,r=2.6)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#1f2d31" stroke="none"/>`;
-const PA=(d,f="none")=>`<path d="${d}" fill="${f}"/>`;
-const TEAR='<path d="M-9 1q-2.5 4 0 6q2.5-2 0-6z" fill="#7fb4ea" stroke="none"/>';
-const SWEAT='<path d="M18-14q-3 4 0 6q3-2 0-6z" fill="#7fb4ea" stroke="none"/>';
-const SADB=PA("M-13-9L-5-13")+PA("M13-9L5-13"),ANGB=PA("M-14-11L-4-6")+PA("M14-11L4-6");
-const FACES={
-Joie:[EY(-8,-4)+EY(8,-4)+PA("M-11 5Q0 19 11 5Z","#fff")],
-Fierté:[PA("M-12-3Q-8-8-4-3")+PA("M4-3Q8-8 12-3")+PA("M-9 7Q0 16 9 7")],
-Surprise:[PA("M-12-13Q-8-17-4-13")+PA("M4-13Q8-17 12-13")+EY(-8,-4,3.6)+EY(8,-4,3.6)+'<ellipse cx="0" cy="11" rx="4" ry="5.5" fill="#fff"/>'],
-Calme:[PA("M-12-4Q-8 0-4-4")+PA("M4-4Q8 0 12-4")+PA("M-7 8Q0 13 7 8")],
-Tristesse:[SADB+EY(-8,-3)+EY(8,-3)+PA("M-8 13Q0 6 8 13")+TEAR],
-Solitude:[PA("M-12-5H-4")+PA("M4-5H12")+EY(-8,-1,2.2)+EY(8,-1,2.2)+PA("M-6 11Q0 8 6 11")],
-Épuisement:[PA("M-12-3H-4")+PA("M4-3H12")+PA("M-11 2Q-8 4-5 2")+PA("M5 2Q8 4 11 2")+'<ellipse cx="0" cy="11" rx="3.5" ry="4.5" fill="#fff"/>'],
-Peur:[PA("M-13-12L-5-15")+PA("M13-12L5-15")+EY(-8,-4,3.6)+EY(8,-4,3.6)+PA("M-7 12Q-3.5 8 0 12Q3.5 16 7 12")+SWEAT],
-Anxiété:[SADB+EY(-8,-3)+EY(8,-3)+PA("M-8 11Q-4 8 0 11T8 11")+SWEAT],
-Honte:[SADB+EY(-8,0,2.2)+EY(8,0,2.2)+'<ellipse cx="-14" cy="6" rx="4.5" ry="3" fill="#f28aa5" stroke="none"/><ellipse cx="14" cy="6" rx="4.5" ry="3" fill="#f28aa5" stroke="none"/>'+PA("M-5 12Q-2 10 0 12Q2 14 5 12")],
-Culpabilité:[PA("M-13-8L-5-13")+PA("M13-8L5-13")+EY(-8,-1,2.2)+EY(8,-1,2.2)+PA("M-6 12Q0 10 6 12")],
-Colère:[ANGB+EY(-8,-1)+EY(8,-1)+PA("M-8 13Q0 6 8 13")],
-Frustration:[ANGB+EY(-8,-2)+EY(8,-2)+PA("M-9 9H9V14H-9Z","#fff")+PA("M-3 9V14")+PA("M3 9V14")],
-Dégoût:[PA("M-12-7L-5-4L-12-1")+PA("M12-7L5-4L12-1")+PA("M-9 11Q-4.5 8 0 11Q4.5 14 9 11")+'<path d="M-2 12q0 6 4 6q4 0 4-6z" fill="#f28aa5"/>']
-};
-
-function face(n){return `<circle r="24" fill="#fffdf5"/>`+FACES[n][0]}
-function pol(r,a){a=a*Math.PI/180;return [280+r*Math.cos(a),280+r*Math.sin(a)]}
-function sector(i){const w=360/WHEEL.length,a0=-90-w/2+i*w,a1=a0+w,R=276,r=92;
-const [x0,y0]=pol(R,a0),[x1,y1]=pol(R,a1),[x2,y2]=pol(r,a1),[x3,y3]=pol(r,a0);
-return `M${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 0 0 ${x3} ${y3}Z`}
-function secSVG(i,on){const [n,c]=WHEEL[i],mid=-90+i*360/WHEEL.length,[fx,fy]=pol(165,mid),[lx,ly]=pol(235,mid);
-return `<g class="sec" data-n="${n}" role="button" tabindex="0" aria-pressed="${on}" aria-label="${n}">
-<path d="${sector(i)}" fill="${c}" fill-opacity="${on?1:.65}" stroke="${on?"var(--ink)":"var(--card)"}" stroke-width="${on?5:2}" stroke-linejoin="round"/>
-<g transform="translate(${fx} ${fy}) scale(1.2)" stroke="#1f2d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">${face(n)}</g>
-<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14.5" font-weight="700" fill="#1f2d31">${n}</text>
-${on?`<g transform="translate(${fx+27}${fy-27})"><circle r="10" fill="var(--ink)"/><path d="M-4.5 0L-1 3.5L5 -3.5" stroke="var(--bg)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`:""}</g>`}
-
-let lastN="",focusN="";
-function drawChips(){const idx=WHEEL.map((_,i)=>i),off=idx.filter(i=>!sel.has(WHEEL[i][0])),on=idx.filter(i=>sel.has(WHEEL[i][0]));
-$("wheel").innerHTML=`<svg viewBox="0 0 560 560" role="group" aria-label="Roue des émotions">${off.map(i=>secSVG(i,false)).join("")}${on.map(i=>secSVG(i,true)).join("")}
-<circle cx="280" cy="280" r="86" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
-<text x="280" y="270" text-anchor="middle" font-size="${lastN.length>9?21:25}" font-weight="700" fill="var(--ink)">${lastN||"Mes émotions"}</text>
-<text x="280" y="300" text-anchor="middle" font-size="16" fill="var(--mute)">${sel.size?sel.size+" choisie"+(sel.size>1?"s":""):"Touchez un visage"}</text></svg>`;
-$("chips").innerHTML="";[...sel].forEach(n=>{const b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed","true");b.textContent=n+" ✕";b.onclick=()=>{sel.delete(n);lastN="";drawChips()};$("chips").appendChild(b)});
-if(focusN){const g=$("wheel").querySelector(`[data-n="${focusN}"]`);g&&g.focus();focusN=""}}
-function pick(g){if(!g)return;const n=g.dataset.n;sel.has(n)?sel.delete(n):sel.add(n);lastN=n;focusN=n;drawChips()}
-$("wheel").addEventListener("click",e=>pick(e.target.closest(".sec")));
-
-const KEY="journal-emotions-v1";
-const GUIDE=[
-["Catastrophisme","Imaginer le pire scénario et le considérer comme probable.","« Mon patron m'a convoqué : je vais être renvoyé et tout perdre. »"],
-["Pensée tout ou rien","Voir les choses en noir ou blanc, sans nuance.","« Si je ne réussis pas parfaitement, c'est un échec total. »"],
-["Lecture de pensée","Croire savoir ce que les autres pensent, sans preuve.","« Elle n'a pas répondu, elle doit me trouver ennuyeux. »"],
-["Généralisation excessive","Tirer une règle générale à partir d'un seul événement.","« J'ai raté cet entretien, je rate toujours tout. »"],
-["Raisonnement émotionnel","Prendre ce qu'on ressent pour la preuve que c'est vrai.","« Je me sens nul, donc je suis nul. »"],
-["Disqualification du positif","Écarter les réussites ou les compliments.","« Il dit ça pour être gentil, ça ne compte pas. »"],
-["Étiquetage","Se coller (ou coller aux autres) une étiquette globale.","« Je suis un raté » plutôt que « j'ai fait une erreur »."],
-["Personnalisation","Se croire responsable de ce qui ne dépend pas de soi.","« Mon ami est de mauvaise humeur, j'ai dû faire quelque شيء. »"],
-["Devoirs / « il faut »","Se fixer des règles rigides et se juger sévèrement.","« Je devrais toujours être efficace et disponible. »"],
-["Filtre mental","Ne retenir que le négatif d'une situation.","« Sur dix remarques, une critique : tout était mauvais. »"],
-["Anticipation négative","Prédire que ça va mal se passer sans nuance.","« Je sais que cette soirée sera pénible, autant ne pas y aller. »"]
-];
-const DIST=GUIDE.map(g=>g[0]);
-let dsel=new Set(),selectedDomain="Famille",touched=false,touchedI=false,entries=[],sel=new Set();
-
-function drawDomainChips(){
-  const box=$("domChips");box.innerHTML="";
-  DOMAINES.forEach(d=>{
-    const b=document.createElement("button");b.type="button";b.className="chip chip-domain";
-    b.textContent=d;b.setAttribute("aria-pressed",selectedDomain===d);
-    b.onclick=()=>{
-      selectedDomain=d;
-      $("otherDomBox").hidden=(d!=="Autre");
-      drawDomainChips();
-    };
-    box.appendChild(b);
-  });
-}
-
-function drawD(){
-  $("dchips").innerHTML="";
-  DIST.forEach(n=>{
-    const b=document.createElement("button");b.type="button";b.className="chip";
-    b.textContent=n;b.setAttribute("aria-pressed",dsel.has(n));
-    b.onclick=()=>{dsel.has(n)?dsel.delete(n):dsel.add(n);drawD()};
-    $("dchips").appendChild(b);
-  });
-}
-
-function load(){try{entries=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){entries=[]}}
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(entries))}catch(e){toast("Stockage indisponible")}}
-function toast(t){const x=$("toast");x.textContent=t;x.classList.add("on");setTimeout(()=>x.classList.remove("on"),1800)}
-function localISO(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
-function tick(){const d=new Date();$("clock").textContent=d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
-$("day").textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
-function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-
-function resetForm(){
-  $("when").value=localISO(new Date());
-  ["event","body","auto","alt","otherDomText"].forEach(i=>$(i).value="");
-  $("int").value=50;$("intv").textContent="50 %";$("int2").value=50;$("intv2").textContent="50 %";
-  touched=false;touchedI=false;sel.clear();dsel.clear();selectedDomain="Famille";
-  $("otherDomBox").hidden=true;
-  drawDomainChips();drawD();drawChips();
-}
-
-function dayKey(w){return w.slice(0,10)}
-function dayLabel(k){return new Date(k+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})}
-
-function renderStats(){
-  if(!entries.length){
-    $("chartEvolution").innerHTML='<small>Aucune donnée à analyser.</small>';
-    $("chartDomain").innerHTML='<small>Aucune donnée à analyser.</small>';
-    $("chartWords").innerHTML='<small>Aucune donnée à analyser.</small>';
-    return;
-  }
-
-  // 1. STATS DOMAINES
-  const domCounts={};
-  entries.forEach(e=>{
-    const d=(e.domain==="Autre" && e.domainOther)?e.domainOther:(e.domain||"Famille");
-    domCounts[d]=(domCounts[d]||0)+1;
-  });
-  const maxDom=Math.max(...Object.values(domCounts),1);
-  $("chartDomain").innerHTML=Object.entries(domCounts).map(([d,cnt])=>`
-    <div class="bar-chart-row">
-      <div class="bar-label">${esc(d)}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxDom*100)}%;background:var(--acc2)"></div></div>
-      <div class="bar-val">${cnt}</div>
     </div>
-  `).join("");
 
-  // 2. STATS TERMES RÉCURRENTS
-  const words={};
-  const stopWords=new Set(["de","la","le","les","un","une","des","et","en","a","dans","pour","pas","que","qui","ce","sur","ne","je","me","ma","mon","mes","avec","se","du","est"]);
-  entries.forEach(e=>{
-    const text=(e.auto+" "+e.body+" "+e.event).toLowerCase();
-    text.match(/[a-zàâçéèêëîïôûùüÿñæœ]+/gi)?.forEach(w=>{
-      if(w.length>2 && !stopWords.has(w)){words[w]=(words[w]||0)+1;}
-    });
-  });
-  const sortedWords=Object.entries(words).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const maxWord=sortedWords[0]?sortedWords[0][1]:1;
-  $("chartWords").innerHTML=sortedWords.length?sortedWords.map(([w,cnt])=>`
-    <div class="bar-chart-row">
-      <div class="bar-label">${esc(w)}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxWord*100)}%"></div></div>
-      <div class="bar-val">${cnt}</div>
-    </div>
-  `).join("") : '<small>Rédigez plus de détails pour faire ressortir les mots récurrents.</small>';
+    <!-- Étape 3 : Ressenti & Roue -->
+    <div class="wizard-step" id="step-2">
+      <div class="step-card">
+        <label for="body">Ressenti : émotion / sensation</label>
+        <textarea id="body" placeholder="Qu'avez-vous ressenti dans le corps ou dans la tête ?"></textarea>
 
-  // 3. COURBE D'ÉVOLUTION TEMPORELLE
-  const dates=[...new Set(entries.map(e=>dayKey(e.when)))].sort();
-  if(dates.length<2){
-    $("chartEvolution").innerHTML='<small>Saisissez des entrées sur au moins 2 jours pour afficher la courbe.</small>';
-    return;
-  }
-  const emosToTrack=["Anxiété","Tristesse","Joie","Colère"].filter(m=>entries.some(e=>e.emotions.includes(m)));
-  const width=Math.max(320, dates.length*50);
-  let svg=`<svg width="${width}" height="140" viewBox="0 0 ${width} 140" style="background:var(--bg);border-radius:12px;padding:10px">`;
-  
-  emosToTrack.forEach(emo=>{
-    const pts=dates.map((d,i)=>{
-      const dayEntries=entries.filter(e=>dayKey(e.when)===d && e.emotions.includes(emo));
-      const avgInt=dayEntries.length? dayEntries.reduce((a,b)=>a+(b.intensity||50),0)/dayEntries.length : 0;
-      const x=30 + (i/(dates.length-1))*(width-60);
-      const y=110 - (avgInt/100)*90;
-      return {x,y,avgInt};
-    });
-    const strokeColor=EMO_COLORS[emo]||"var(--acc)";
-    const pathD=pts.map((p,i)=>(i===0?"M":"L")+` ${p.x} ${p.y}`).join(" ");
-    svg+=`<path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="3" stroke-linecap="round"/>`;
-    pts.forEach(p=>{
-      if(p.avgInt>0) svg+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${strokeColor}"/>`;
-    });
-  });
-  
-  // Axes & Légendes
-  dates.forEach((d,i)=>{
-    const x=30 + (i/(dates.length-1))*(width-60);
-    svg+=`<text x="${x}" y="130" font-size="10" text-anchor="middle" fill="var(--mute)">${d.slice(5)}</text>`;
-  });
-  svg+='</svg>';
-  
-  // Légende
-  const legend=emosToTrack.map(m=>`<span style="font-size:11px;margin-right:8px;font-weight:600;color:${EMO_COLORS[m]||"var(--acc)"}">● ${m}</span>`).join("");
-  $("chartEvolution").innerHTML=svg+`<div style="margin-top:6px">${legend}</div>`;
-}
-
-function renderList(){
-  const L=$("list");
-  $("count").textContent=entries.length+" entrée"+(entries.length>1?"s":"")+" enregistrée"+(entries.length>1?"s":"");
-  if(!entries.length){L.innerHTML='<div class="card" style="text-align:center;color:var(--mute)">Aucune entrée. Enregistrez votre premier ressenti !</div>';return}
-  
-  const g={};entries.forEach(e=>(g[dayKey(e.when)]=g[dayKey(e.when)]||[]).push(e));
-  
-  L.innerHTML=Object.keys(g).sort().reverse().map(k=>{
-    const A=g[k];
-    const domStr=[...new Set(A.map(e=>e.domain||"Famille"))].join(", ");
-    return `
-      <div class="day-group">
-        <div class="day-header" onclick="this.nextElementSibling.hidden = !this.nextElementSibling.hidden">
-          <span>${dayLabel(k)} <small style="display:inline;margin-left:6px">(${A.length} entrée${A.length>1?"s":""})</small></span>
-          <span style="font-size:12px;font-weight:500;color:var(--mute)">${esc(domStr)} ▼</span>
-        </div>
-        <div class="day-details">
-          ${A.map(e=>`
-            <article class="e">
-              <button class="del" data-id="${e.id}">Supprimer</button>
-              <time>${new Date(e.when).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</time>
-              <div class="tags">
-                <span class="tag tag-domain">${esc((e.domain==="Autre"&&e.domainOther)?e.domainOther:(e.domain||"Famille"))}</span>
-                ${e.emotions.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}
-                ${e.intensity!=null?`<span class="tag">${e.intensity}%${e.after!=null?' → '+e.after+'%':''}</span>`:''}
-              </div>
-              ${(e.dist||[]).length?`<div class="tags">${e.dist.map(x=>`<span class="tag" style="background:var(--pastel-yellow);color:#5d4b07">${esc(x)}</span>`).join("")}</div>`:''}
-              ${e.event?`<p><b>Événement :</b> ${esc(e.event)}</p>`:''}
-              ${e.body?`<p><b>Ressenti :</b> ${esc(e.body)}</p>`:''}
-              ${e.auto?`<p><b>Pensée automatique :</b> ${esc(e.auto)}</p>`:''}
-              ${e.alt?`<p><b>Pensée alternative :</b> ${esc(e.alt)}</p>`:''}
-            </article>
-          `).join("")}
-        </div>
+        <label style="margin-top:16px">Roue des émotions</label>
+        <div id="wheel"></div>
+        <div class="chips" id="chips" style="margin-top:10px"></div>
       </div>
-    `;
-  }).join("");
-}
+    </div>
 
-$("int2").oninput=()=>{touched=true;$("intv2").textContent=$("int2").value+" %"};
-$("int").oninput=()=>{touchedI=true;$("intv").textContent=$("int").value+" %"};
+    <!-- Étape 4 : Intensité Avant -->
+    <div class="wizard-step" id="step-3">
+      <div class="step-card">
+        <label for="int">Intensité du ressenti</label>
+        <small>Évaluez la force de l'émotion de 0 à 10.</small>
+        <input type="range" id="int" min="0" max="10" step="1" value="5">
+        <div class="range-val" id="intv">5 / 10</div>
+        <div class="row"><span>0 (Très faible)</span><span>10 (Maximale)</span></div>
+      </div>
+    </div>
 
-$("save").onclick=()=>{
-  const e={
-    id:Date.now(),
-    when:$("when").value||localISO(new Date()),
-    domain:selectedDomain,
-    domainOther:$("otherDomText").value.trim(),
-    event:$("event").value.trim(),
-    emotions:[...sel],
-    intensity:touchedI?+$("int").value:null,
-    after:touched?+$("int2").value:null,
-    dist:[...dsel],
-    body:$("body").value.trim(),
-    auto:$("auto").value.trim(),
-    alt:$("alt").value.trim()
-  };
-  entries.unshift(e);
-  entries.sort((a,b)=>b.when.localeCompare(a.when));
-  persist();
-  resetForm();
-  toast("Entrée enregistrée avec succès");
-};
+    <!-- Étape 5 : Pensée automatique -->
+    <div class="wizard-step" id="step-4">
+      <div class="step-card">
+        <label for="auto">Pensée automatique</label>
+        <small>Qu'avez-vous pensé immédiatement sur le moment ?</small>
+        <textarea id="auto" placeholder="Ex: Je n'y arriverai jamais..."></textarea>
+      </div>
+    </div>
 
-$("list").onclick=ev=>{
-  const id=ev.target.dataset.id;
-  if(id&&confirm("Supprimer cette entrée ?")){
-    entries=entries.filter(e=>e.id!=id);
-    persist();
-    renderList();
-    renderStats();
-  }
-};
+    <!-- Étape 6 : Distorsions -->
+    <div class="wizard-step" id="step-5">
+      <div class="step-card">
+        <label>Distorsions cognitives</label>
+        <small>Repérez les pièges de pensée correspondants :</small>
+        <div class="chips" id="dchips"></div>
+      </div>
+    </div>
 
-function tab(n){
-  $("v1").hidden=n!=1; $("v2").hidden=n!=2; $("v3").hidden=n!=3;
-  $("t1").setAttribute("aria-selected",n==1);
-  $("t2").setAttribute("aria-selected",n==2);
-  $("t3").setAttribute("aria-selected",n==3);
-  if(n===3){ renderList(); renderStats(); }
-  window.scrollTo(0,0);
-}
-$("t1").onclick=()=>tab(1);
-$("t2").onclick=()=>tab(2);
-$("t3").onclick=()=>tab(3);
-
-$("guide").innerHTML=GUIDE.map(g=>`<details class="card"><summary>${esc(g[0])}</summary><div class="in"><p>${esc(g[1])}</p><p class="ex">${esc(g[2])}</p></div></details>`).join("");
-
-// Export CSV & JSON
-const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
-function csvText(){
-  const q=v=>'"'+String(v??"").replace(/"/g,'""').replace(/\s*\n\s*/g," ")+'"';
-  const H=["id","date","heure","jour_semaine","domaine","situation","emotions","intensite_avant","intensite_apres","ressenti","pensee_automatique","pensee_alternative","distorsions"];
-  const rows=[...entries].sort((a,b)=>a.when.localeCompare(b.when)).map(e=>{
-    const d=new Date(e.when);
-    return [e.id,e.when.slice(0,10),e.when.slice(11,16),JOURS[d.getDay()],q((e.domain==="Autre"&&e.domainOther)?e.domainOther:(e.domain||"Famille")),q(e.event),q(e.emotions.join("|")),e.intensity??"",e.after??"",q(e.body),q(e.auto),q(e.alt),q((e.dist||[]).join("|"))].join(";");
-  });
-  return "\ufeff"+H.join(";")+"\r\n"+rows.join("\r\n");
-}
-
-async function saveFile(name,data){
-  if(!entries.length){toast("Rien à exporter");return}
-  try{
-    const u=URL.createObjectURL(new Blob([data],{type:"text/plain;charset=utf-8"}));
-    const a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(u),4000);toast("Fichier téléchargé");
-  }catch(e){toast("Export impossible");}
-}
-
-const stamp=()=>localISO(new Date()).slice(0,10);
-$("csv").onclick=()=>saveFile("journal-tcc-"+stamp()+".csv",csvText());
-$("json").onclick=()=>saveFile("journal-tcc-backup-"+stamp()+".json",JSON.stringify(entries,null,1));
-$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(csvText());toast("CSV copié")}catch(e){toast("Erreur copie")}};
-
-$("imp").onchange=async ev=>{
-  const f=ev.target.files[0];if(!f)return;
-  try{
-    const a=JSON.parse(await f.text());if(!Array.isArray(a))throw 0;
-    const ids=new Set(entries.map(e=>e.id));let n=0;
-    a.forEach(e=>{if(e&&e.when&&!ids.has(e.id)){entries.push(e);n++}});
-    entries.sort((a,b)=>b.when.localeCompare(a.when));persist();renderList();renderStats();toast(n+" entrée(s) importée(s)");
-  }catch(e){toast("Fichier JSON invalide")}ev.target.value="";
-};
-
-load();tick();setInterval(tick,15000);resetForm();
-if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
-</script>
-</body>
-</html>
+    <!-- Étape 7 : Pensée alternative -->
+    <div class="wizard-step" id="step-6">
+      <div class="step-card">
+        <label for="alt">Pensée alternative</label>
+        <small>Comment voir la situation avec plus de recul et de nuance ?</small>
+        <textarea id="alt" placeholder="Ex: C'est un
